@@ -1,0 +1,38 @@
+#!/bin/bash
+
+source versions.txt
+
+export TARGET=i586-elf
+export PREFIX="$HOME/opt/cross"
+
+mkdir -p $PREFIX
+mkdir -p $PREFIX/bin
+
+export PATH="$PREFIX/bin:$PATH"
+
+tar -xf gcc-$gcc_vers.tar.gz && \
+tar -xf gmp-$gmp_vers.tar.xz && \
+tar -xf mpfr-$mpfr_vers.tar.gz && \
+tar -xf mpc-$mpc_vers.tar.gz && \
+mv gmp-$gmp_vers gcc-$gcc_vers/gmp && \
+mv mpfr-$mpfr_vers gcc-$gcc_vers/mpfr && \
+mv mpc-$mpc_vers gcc-$gcc_vers/mpc && \
+mkdir gcc-build && \
+mv gcc-$gcc_vers gcc-build && \
+mkdir gcc-build/objdir && \
+cd gcc-build/objdir && \
+../gcc-$gcc_vers/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --disable-shared --enable-languages=c,c++ --without-headers && \
+make -j4 all-gcc && \
+make -j4 all-target-libgcc && \
+make install-gcc && \
+make install-target-libgcc && \
+cd ../.. && \
+rm -f gcc-$gcc_vers.tar.gz gmp-$gmp_vers.tar.xz mpc-$mpc_vers.tar.gz mpfr-$mpfr_vers.tar.gz
+
+rm -rf gcc-build gcc-$gcc_vers
+
+echo "all done!"
+
+
+
+

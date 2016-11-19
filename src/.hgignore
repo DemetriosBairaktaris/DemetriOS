@@ -1,0 +1,13 @@
+syntax: glob
+
+bin/**
+*.o
+*.obj
+*~
+tools/binutils-2.23/**
+tools/gcc-4.8.1/**
+tools/*.tar.*
+boot/env.mk
+drivers/env.mk
+kernel/env.mk
+

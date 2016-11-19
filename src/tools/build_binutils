@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source versions.txt
+
+export TARGET=i586-elf
+export PREFIX="$HOME/opt/cross"
+
+mkdir -p $PREFIX
+mkdir -p $PREFIX/bin
+
+export PATH="$PREFIX/bin:$PATH"
+
+rm -rf binutils-$binutils_vers
+
+tar -xvzf binutils-$binutils_vers.tar.gz && \
+cd binutils-$binutils_vers && \
+./configure --target=$TARGET --prefix="$PREFIX" --disable-nls && \
+make -j4 && \
+make install && \
+rm -f binutils-$binutils_vers.tar.gz
+
+rm -rf binutils-$binutils_vers
+
+echo "All done!"
+
+

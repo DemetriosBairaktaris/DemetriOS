@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source versions.txt
+
+
+if [ -f binutils-$binutils_vers.tar.gz ]; then
+	echo "binutils already downloaded"
+else
+	wget ftp://ftp.gnu.org/gnu/binutils/binutils-$binutils_vers.tar.gz
+fi
+
+if [ -f gcc-$gcc_vers.tar.gz ]; then
+	echo "gcc already downloaded"
+else
+	wget ftp://ftp.gnu.org/gnu/gcc/gcc-$gcc_vers/gcc-$gcc_vers.tar.gz
+	wget ftp://ftp.gnu.org/gnu/gmp/gmp-$gmp_vers.tar.xz
+	wget ftp://ftp.gnu.org/gnu/mpfr/mpfr-$mpfr_vers.tar.gz
+	wget ftp://ftp.gnu.org/gnu/mpc/mpc-$mpc_vers.tar.gz
+fi
+
+
+
